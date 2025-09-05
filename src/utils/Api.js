@@ -1,30 +1,9 @@
+import { v4 as uuidv4 } from "uuid";
+
 // Sử dụng proxy path để tránh CORS
 const BASE_URL = "/api";
 const SECRET_KEY = "test-callback-secret-key-2024";
 const BASIC_AUTH = btoa("agent000:1iLCL5IK");
-
-// Tạo UUID tương thích với mọi môi trường
-function generateUUID() {
-  console.log("Debug crypto:", {
-    hasCrypto: typeof crypto !== "undefined",
-    hasRandomUUID: typeof crypto !== "undefined" && crypto.randomUUID,
-    userAgent:
-      typeof navigator !== "undefined" ? navigator.userAgent : "no navigator",
-  });
-
-  if (typeof crypto !== "undefined" && crypto.randomUUID) {
-    console.log("Using crypto.randomUUID()");
-    return crypto.randomUUID();
-  }
-
-  console.log("Using fallback UUID generation");
-  // Fallback cho môi trường không support crypto.randomUUID
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
 
 export const userService = {
   async getBalance(username) {
@@ -40,7 +19,7 @@ export const userService = {
   },
 
   async deposit(username, amount) {
-    const txid = generateUUID();
+    const txid = uuidv4();
     const response = await fetch(`${BASE_URL}/test-callback/credit`, {
       method: "POST",
       headers: {
@@ -53,7 +32,7 @@ export const userService = {
   },
 
   async withdraw(username, amount) {
-    const txid = generateUUID();
+    const txid = uuidv4();
     const response = await fetch(`${BASE_URL}/test-callback/debit`, {
       method: "POST",
       headers: {

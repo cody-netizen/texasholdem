@@ -19,9 +19,6 @@ RUN npm ci
 COPY . .
 COPY --from=builder /app/dist ./dist
 
-# Debug: Kiểm tra phiên bản Node.js
-RUN node --version
-
 EXPOSE 4000
 
 # Sử dụng Vite preview - có proxy configuration
