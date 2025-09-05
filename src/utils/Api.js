@@ -1,4 +1,5 @@
-const BASE_URL = "https://pangpang.abb1901.com/api";
+// Sử dụng proxy path để tránh CORS
+const BASE_URL = "/api";
 const SECRET_KEY = "test-callback-secret-key-2024";
 const BASIC_AUTH = btoa("agent000:1iLCL5IK");
 
@@ -46,7 +47,7 @@ export const userService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Basic ${BASIC_AUTH}`,
+        Authorization: `Basic ${BASIC_AUTH}`,
       },
       body: JSON.stringify({ username }),
     });

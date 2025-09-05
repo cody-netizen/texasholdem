@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { IoReloadOutline } from "react-icons/io5";
 import reactLogo from "../assets/react.svg";
 import { userService } from "../utils/Api";
-import { IoReloadOutline } from "react-icons/io5";
 
 function Page({ userData, onLogout }) {
   const [balance, setBalance] = useState(userData.balance);
@@ -66,48 +66,19 @@ function Page({ userData, onLogout }) {
     }
   }
 
-  // async function handlePlayGame() {
-  //   try {
-  //     const res = await userService.startGame(userData.username);
-  //     console.log("Game start response:", res.data.url);
-
-  //     let gameUrl = null;
-  //     if (res && res.data && res.data.url) {
-  //       gameUrl = res.data.url;
-  //     } else if (res && res.url) {
-  //       gameUrl = res.url;
-  //     }
-
-  //     if (gameUrl) {
-  //       window.open(gameUrl, "_blank", "noopener,noreferrer");
-  //     } else {
-  //       console.error("No game URL found in response");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error starting game:", error);
-  //   }
-  // }
-
   async function handlePlayGame() {
     try {
       const res = await userService.startGame(userData.username);
-      console.log("Game start response:", res?.data?.url || res?.url);
+      console.log("Game start response:", res.data.url);
 
-      let gameUrl = res?.data?.url || res?.url;
+      let gameUrl = null;
+      if (res && res.data && res.data.url) {
+        gameUrl = res.data.url;
+      } else if (res && res.url) {
+        gameUrl = res.url;
+      }
 
       if (gameUrl) {
-        // Chuyển sang localhost:7456
-        try {
-          const urlObj = new URL(gameUrl);
-          urlObj.protocol = "http:";
-          urlObj.hostname = "localhost";
-          urlObj.port = "7456";
-
-          gameUrl = urlObj.toString();
-        } catch (e) {
-          console.error("Invalid URL:", gameUrl, e);
-        }
-
         window.open(gameUrl, "_blank", "noopener,noreferrer");
       } else {
         console.error("No game URL found in response");
@@ -116,6 +87,35 @@ function Page({ userData, onLogout }) {
       console.error("Error starting game:", error);
     }
   }
+
+  //   async function handlePlayGame() {
+  //     try {
+  //       const res = await userService.startGame(userData.username);
+  //       console.log("Game start response:", res?.data?.url || res?.url);
+
+  //       let gameUrl = res?.data?.url || res?.url;
+
+  //       if (gameUrl) {
+  //         // Chuyển sang localhost:7456
+  //         try {
+  //           const urlObj = new URL(gameUrl);
+  //           urlObj.protocol = "http:";
+  //           urlObj.hostname = "localhost";
+  //           urlObj.port = "7456";
+
+  //           gameUrl = urlObj.toString();
+  //         } catch (e) {
+  //           console.error("Invalid URL:", gameUrl, e);
+  //         }
+
+  //         window.open(gameUrl, "_blank", "noopener,noreferrer");
+  //       } else {
+  //         console.error("No game URL found in response");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error starting game:", error);
+  //     }
+  //   }
 
   return (
     <div className="page-container">

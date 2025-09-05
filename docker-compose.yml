@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  texasholdem-app:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    container_name: texasholdem-poker
