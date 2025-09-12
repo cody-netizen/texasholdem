@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IoReloadOutline } from "react-icons/io5";
-import reactLogo from "../assets/react.svg";
+import logo from "../assets/pokerImg.jpg";
 import { userService } from "../utils/Api";
 
 function Page({ userData, onLogout }) {
@@ -151,7 +151,7 @@ function Page({ userData, onLogout }) {
 
       <main className="page-content">
         <div className="game-section" onClick={handlePlayGame}>
-          <img src={reactLogo} alt="Poker Game" className="game-logo" />
+          <img src={logo} alt="Poker Game" className="game-logo" />
           <h3>Click to Play Poker</h3>
         </div>
       </main>
